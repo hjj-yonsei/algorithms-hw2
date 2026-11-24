@@ -117,8 +117,8 @@ class HashTable:
                 self.last_probes = probes
                 return node.value, True, probes
             node = node.next
-        self.last_probes = 0
-        return None, False, 0
+        self.last_probes = probes
+        return None, False, probes
 
     def get(self, key):
         value, found, probes = self.get_with_probes(key)

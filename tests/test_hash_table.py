@@ -49,6 +49,29 @@ class TestChainingHashTable(unittest.TestCase):
         self.assertFalse(found)
         self.assertEqual(probes, 0)
 
+    def test_missing_key_counts_all_nodes_in_occupied_bucket(self):
+        ht = HashTable(capacity=11, max_load=None)
+        inserted = []
+        for index in range(100):
+            key = f"key-{index}"
+            bucket = compute_horner(key, ht.capacity)
+            if not inserted:
+                inserted_bucket = bucket
+            if bucket == inserted_bucket:
+                ht.put(key, index)
+                inserted.append(key)
+                if len(inserted) == 3:
+                    break
+
+        missing = "missing-key"
+        while compute_horner(missing, ht.capacity) != inserted_bucket:
+            missing += "-x"
+
+        val, found, probes = ht.get_with_probes(missing)
+        self.assertIsNone(val)
+        self.assertFalse(found)
+        self.assertEqual(probes, len(inserted))
+
     def test_fixed_capacity_allows_load_above_one(self):
         ht = HashTable(capacity=5, max_load=None)
         for i in range(20):
