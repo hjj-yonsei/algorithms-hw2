@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="500" viewBox="0 0 820 500">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="410.0" y="26" font-size="16" font-weight="bold" text-anchor="middle">개별 체이닝 vs 선형 탐지 탐색 비용 비교 (M = 4093, α = 0.1~0.9)</text>
+  <line x1='145.8' y1='45' x2='145.8' y2='435' stroke='#eaeef2'/><text x='145.8' y='455' font-size='12' text-anchor='middle'>0.1</text><line x1='221.6' y1='45' x2='221.6' y2='435' stroke='#eaeef2'/><text x='221.6' y='455' font-size='12' text-anchor='middle'>0.2</text><line x1='297.4' y1='45' x2='297.4' y2='435' stroke='#eaeef2'/><text x='297.4' y='455' font-size='12' text-anchor='middle'>0.3</text><line x1='373.2' y1='45' x2='373.2' y2='435' stroke='#eaeef2'/><text x='373.2' y='455' font-size='12' text-anchor='middle'>0.4</text><line x1='448.9' y1='45' x2='448.9' y2='435' stroke='#eaeef2'/><text x='448.9' y='455' font-size='12' text-anchor='middle'>0.5</text><line x1='524.7' y1='45' x2='524.7' y2='435' stroke='#eaeef2'/><text x='524.7' y='455' font-size='12' text-anchor='middle'>0.6</text><line x1='600.5' y1='45' x2='600.5' y2='435' stroke='#eaeef2'/><text x='600.5' y='455' font-size='12' text-anchor='middle'>0.7</text><line x1='676.3' y1='45' x2='676.3' y2='435' stroke='#eaeef2'/><text x='676.3' y='455' font-size='12' text-anchor='middle'>0.8</text><line x1='752.1' y1='45' x2='752.1' y2='435' stroke='#eaeef2'/><text x='752.1' y='455' font-size='12' text-anchor='middle'>0.9</text><line x1='70' y1='435.0' x2='790' y2='435.0' stroke='#eaeef2'/><text x='60' y='439.0' font-size='12' text-anchor='end'>0</text><line x1='70' y1='340.5' x2='790' y2='340.5' stroke='#eaeef2'/><text x='60' y='344.5' font-size='12' text-anchor='end'>10</text><line x1='70' y1='246.1' x2='790' y2='246.1' stroke='#eaeef2'/><text x='60' y='250.1' font-size='12' text-anchor='end'>20</text><line x1='70' y1='151.6' x2='790' y2='151.6' stroke='#eaeef2'/><text x='60' y='155.6' font-size='12' text-anchor='end'>30</text><line x1='70' y1='57.2' x2='790' y2='57.2' stroke='#eaeef2'/><text x='60' y='61.2' font-size='12' text-anchor='end'>40</text>
+  <line x1="70" y1="45" x2="70" y2="435" stroke="#24292f" stroke-width="1.5"/>
+  <line x1="70" y1="435" x2="790" y2="435" stroke="#24292f" stroke-width="1.5"/>
+  <polyline fill="none" stroke="#cf222e" stroke-width="2.5" points="145.7,424.5 221.7,423.0 297.4,420.5 373.2,417.1 448.9,411.3 524.7,400.9 600.5,375.6 676.2,316.6 752.2,73.9"/>
+  <polyline fill="none" stroke="#ff8182" stroke-width="1.8" stroke-dasharray="5,4" points="145.7,424.4 221.7,422.9 297.4,420.6 373.2,417.2 448.9,411.4 524.7,400.8 600.5,377.8 676.2,312.3 752.2,-42.7"/>
+  <polyline fill="none" stroke="#bf8700" stroke-width="2.5" points="145.7,425.2 221.7,424.4 297.4,423.4 373.2,422.6 448.9,420.8 524.7,418.3 600.5,414.4 676.2,407.2 752.2,388.8"/>
+  <polyline fill="none" stroke="#e3b341" stroke-width="1.8" stroke-dasharray="5,4" points="145.7,425.0 221.7,424.4 297.4,423.5 373.2,422.4 448.9,420.8 524.7,418.5 600.5,414.5 676.2,406.7 752.2,383.0"/>
+  <polyline fill="none" stroke="#0969da" stroke-width="2.5" points="145.7,434.1 221.7,433.1 297.4,432.0 373.2,431.3 448.9,430.3 524.7,429.4 600.5,428.6 676.2,427.4 752.2,426.5"/>
+  <polyline fill="none" stroke="#1a7f37" stroke-width="2.5" points="145.7,425.2 221.7,424.7 297.4,424.1 373.2,423.6 448.9,423.3 524.7,422.8 600.5,422.3 676.2,421.8 752.2,421.3"/>
+  <text x="430.0" y="485" font-size="13" font-weight="bold" text-anchor="middle">적재율 α = N / M</text>
+  <text x="20" y="240.0" font-size="13" font-weight="bold" text-anchor="middle" transform="rotate(-90 20 240.0)">평균 비교 노드 수 / 들여다본 칸 수</text>
+  <g transform="translate(86, 57)">
+    <rect width="315" height="132" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+    <line x1="12" y1="20" x2="36" y2="20" stroke="#cf222e" stroke-width="2.5"/>
+    <text x="44" y="24" font-size="12">선형 탐지 실패 (실선: 실험 / 점선: 이론)</text>
+    <line x1="12" y1="42" x2="36" y2="42" stroke="#bf8700" stroke-width="2.5"/>
+    <text x="44" y="46" font-size="12">선형 탐지 성공 (실선: 실험 / 점선: 이론)</text>
+    <line x1="12" y1="64" x2="36" y2="64" stroke="#0969da" stroke-width="2.5"/>
+    <text x="44" y="68" font-size="12">개별 체이닝 실패 (이론: α)</text>
+    <line x1="12" y1="86" x2="36" y2="86" stroke="#1a7f37" stroke-width="2.5"/>
+    <text x="44" y="90" font-size="12">개별 체이닝 성공 (이론: 1 + α/2)</text>
+  </g>
+</svg>
