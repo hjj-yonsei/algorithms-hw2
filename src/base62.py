@@ -1,34 +1,46 @@
+"""0-9, a-z, A-Z 순서의 Base62 인코딩 및 디코딩 모듈."""
+
 ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-BASE = len(ALPHABET)
+BASE = 62
 
 
-def encode(n):
-    """Encode a non-negative integer as a base62 string."""
+def _char_to_val(ch: str) -> int:
+    code = ord(ch)
+    if 48 <= code <= 57:
+        return code - 48
+    if 97 <= code <= 122:
+        return code - 97 + 10
+    if 65 <= code <= 90:
+        return code - 65 + 36
+    raise ValueError(f"유효하지 않은 Base62 문자입니다: {ch!r}")
+
+
+def encode(n: int) -> str:
+    """0 이상의 정수를 Base62 문자열로 변환한다."""
     if isinstance(n, bool) or not isinstance(n, int):
-        raise TypeError("n must be an integer")
+        raise TypeError("정수만 인코딩할 수 있습니다.")
     if n < 0:
-        raise ValueError("n must be non-negative")
+        raise ValueError("0 이상의 정수만 인코딩할 수 있습니다.")
     if n == 0:
         return "0"
 
-    result = []
-    while n:
-        n, remainder = divmod(n, BASE)
-        result.append(ALPHABET[remainder])
-    return "".join(reversed(result))
+    chars = []
+    num = n
+    while num > 0:
+        num, rem = divmod(num, BASE)
+        chars.append(ALPHABET[rem])
+    chars.reverse()
+    return "".join(chars)
 
 
-def decode(s):
-    """Decode a base62 string into an integer."""
+def decode(s: str) -> int:
+    """Base62 문자열을 0 이상의 정수로 복원한다."""
     if not isinstance(s, str):
-        raise TypeError("s must be a string")
-    if not s:
-        raise ValueError("s must not be empty")
+        raise TypeError("문자열만 디코딩할 수 있습니다.")
+    if len(s) == 0:
+        raise ValueError("빈 문자열은 디코딩할 수 없습니다.")
 
-    value = 0
-    for char in s:
-        index = ALPHABET.find(char)
-        if index == -1:
-            raise ValueError("invalid base62 character: " + char)
-        value = value * BASE + index
-    return value
+    result = 0
+    for ch in s:
+        result = result * BASE + _char_to_val(ch)
+    return result

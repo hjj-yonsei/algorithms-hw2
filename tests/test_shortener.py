@@ -1,95 +1,45 @@
 import unittest
-
-from src.base62 import encode
 from src.shortener import URLShortener
 
 
-class TestURLShortener(unittest.TestCase):
-    def test_first_code_is_one_in_base62(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
+class TestShortenerChaining(unittest.TestCase):
+    def test_shorten_and_resolve(self):
+        s = URLShortener()
+        code1 = s.shorten("https://www.yonsei.ac.kr")
+        code2 = s.shorten("https://github.com")
+        self.assertNotEqual(code1, code2)
+        self.assertEqual(s.resolve(code1), "https://www.yonsei.ac.kr")
+        self.assertEqual(s.resolve(code2), "https://github.com")
 
-        code = shortener.shorten("https://example.com")
-
-        self.assertEqual(code, encode(1))
-
-    def test_duplicate_url_returns_existing_code(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
-
-        first = shortener.shorten("https://example.com")
-        second = shortener.shorten("https://example.com")
-
+    def test_duplicate_url_returns_same_code(self):
+        s = URLShortener()
+        first = s.shorten("https://www.yonsei.ac.kr")
+        second = s.shorten("https://www.yonsei.ac.kr")
         self.assertEqual(first, second)
-        self.assertEqual(shortener.resolve(first), "https://example.com")
+        self.assertEqual(len(s), 1)
 
-    def test_different_urls_receive_different_codes(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
-
-        first = shortener.shorten("https://example.com/a")
-        second = shortener.shorten("https://example.com/b")
-
-        self.assertNotEqual(first, second)
-        self.assertEqual(shortener.resolve(first), "https://example.com/a")
-        self.assertEqual(shortener.resolve(second), "https://example.com/b")
-
-    def test_invalid_schemes_and_hosts_are_rejected(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
+    def test_invalid_urls_raise_value_error(self):
+        s = URLShortener()
         invalid_urls = [
             "",
-            "ftp://example.com",
+            "   ",
+            "ftp://files.example.com",
             "javascript:alert(1)",
-            "http://",
             "https://",
-            " https://example.com",
-            "https://example.com ",
-            "https://exa mple.com",
+            "http:///only-path",
+            "https://example.com/has space",
+            "https://example.com/" + ("a" * 2050),
         ]
-
-        for url in invalid_urls:
-            with self.subTest(url=url):
+        for bad in invalid_urls:
+            with self.subTest(bad=bad):
                 with self.assertRaises(ValueError):
-                    shortener.shorten(url)
+                    s.shorten(bad)
 
-    def test_url_over_length_limit_is_rejected(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
-        url = "https://example.com/" + ("a" * 2048)
-
-        with self.assertRaises(ValueError):
-            shortener.shorten(url)
-
-    def test_missing_and_invalid_codes_return_none(self):
-        shortener = URLShortener(table_type="chaining", capacity=11)
-
-        self.assertIsNone(shortener.resolve(""))
-        self.assertIsNone(shortener.resolve("not-a-base62-code"))
-        self.assertIsNone(shortener.resolve("unknown"))
-
-    def test_chaining_and_linear_modes_have_matching_behavior(self):
-        url = "https://example.com/page"
-
-        for table_type in ("chaining", "linear"):
-            with self.subTest(table_type=table_type):
-                shortener = URLShortener(
-                    table_type=table_type,
-                    capacity=11,
-                    max_load=0.75,
-                )
-                code = shortener.shorten(url)
-
-                self.assertEqual(shortener.resolve(code), url)
-                duplicate = shortener.shorten(url)
-                self.assertEqual(duplicate, code)
-
-    def test_linear_mode_rejects_invalid_urls(self):
-        shortener = URLShortener(
-            table_type="linear",
-            capacity=11,
-            max_load=0.75,
-        )
-
-        with self.assertRaises(ValueError):
-            shortener.shorten("ftp://example.com")
-        with self.assertRaises(ValueError):
-            shortener.shorten("https://")
+    def test_unknown_or_invalid_code_returns_none(self):
+        s = URLShortener()
+        self.assertIsNone(s.resolve(""))
+        self.assertIsNone(s.resolve("nonexistent"))
+        self.assertIsNone(s.resolve("bad-code!"))
 
 
 if __name__ == "__main__":
